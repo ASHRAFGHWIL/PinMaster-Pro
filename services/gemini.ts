@@ -1,16 +1,17 @@
 import { GoogleGenAI, Type } from "@google/genai";
-import { AiSuggestion, HighConvertingPlan, GeneratedPin } from "../types";
+import { AiSuggestion, HighConvertingPlan, GeneratedPin, Language } from "../types";
 
 const apiKey = process.env.API_KEY || '';
 const ai = new GoogleGenAI({ apiKey });
 
-// Updated to the latest recommended model for text tasks
 const modelName = "gemini-3-flash-preview";
 
-export const generatePinStrategy = async (topic: string): Promise<AiSuggestion> => {
+export const generatePinStrategy = async (topic: string, lang: Language): Promise<AiSuggestion> => {
   if (!apiKey) {
     throw new Error("API Key is missing");
   }
+
+  const languageName = lang === 'ar' ? 'Arabic' : 'American English';
 
   const prompt = `
     You are a professional Pinterest Marketing Expert based on the "PinMaster" strategy.
@@ -24,7 +25,7 @@ export const generatePinStrategy = async (topic: string): Promise<AiSuggestion> 
     4. Provide a specific "Pro Tip" for this topic based on visual appeal or seasonal trends.
 
     Return the result in JSON format.
-    Language: Arabic.
+    Output Language: ${languageName}.
   `;
 
   try {
@@ -61,9 +62,11 @@ export const generatePinStrategy = async (topic: string): Promise<AiSuggestion> 
   }
 };
 
-export const generateHighConvertingPlan = async (topic: string, audience: string): Promise<HighConvertingPlan> => {
+export const generateHighConvertingPlan = async (topic: string, audience: string, lang: Language): Promise<HighConvertingPlan> => {
     if (!apiKey) throw new Error("API Key is missing");
   
+    const languageName = lang === 'ar' ? 'Arabic' : 'American English';
+
     const prompt = `
       Act as a Pinterest Funnel Expert. Create a "High-Converting Content Plan" for the topic: "${topic}" targeting "${audience}".
       
@@ -79,7 +82,7 @@ export const generateHighConvertingPlan = async (topic: string, audience: string
       - Description: 2 sentences with keywords.
       - Keywords: 3-5 focus keywords.
   
-      Language: Arabic.
+      Output Language: ${languageName}.
     `;
   
     try {
@@ -122,8 +125,10 @@ export const generateHighConvertingPlan = async (topic: string, audience: string
     }
   };
 
-export const generateSinglePin = async (userDescription: string): Promise<GeneratedPin> => {
+export const generateSinglePin = async (userDescription: string, lang: Language): Promise<GeneratedPin> => {
   if (!apiKey) throw new Error("API Key is missing");
+
+  const languageName = lang === 'ar' ? 'Arabic' : 'American English';
 
   const prompt = `
     Analyze the following content description provided by the user:
@@ -133,12 +138,12 @@ export const generateSinglePin = async (userDescription: string): Promise<Genera
     
     1. **Visual Hook:** Describe the ideal image composition. Be specific about what should be in the photo/graphic.
     2. **Text Overlay:** Create a punchy, short text overlay for the image (max 6 words). This is crucial for stopping the scroll.
-    3. **Title:** A keyword-rich, attention-grabbing headline (Arabic).
-    4. **Description:** A compelling 2-3 sentence description incorporating keywords naturally (Arabic).
+    3. **Title:** A keyword-rich, attention-grabbing headline.
+    4. **Description:** A compelling 2-3 sentence description incorporating keywords naturally.
     5. **Alt Text:** A description of the pin for accessibility and SEO.
     6. **Hashtags:** 3-5 relevant hashtags.
 
-    Output Language: Arabic.
+    Output Language: ${languageName}.
   `;
 
   try {

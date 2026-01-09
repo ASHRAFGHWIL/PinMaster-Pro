@@ -1,14 +1,19 @@
 import React from 'react';
 import { CalendarDays, Sun, Snowflake, Leaf, Flower } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export const ContentCalendar: React.FC = () => {
-  const seasons = [
-    { name: 'يناير', event: 'بداية التخطيط للربيع', icon: <Snowflake className="text-blue-400" />, tip: 'ابدأ بنشر محتوى الربيع وتنظيف المنزل' },
-    { name: 'فبراير', event: 'يوم الحب / تجهيزات رمضان', icon: <HeartIcon />, tip: 'هدايا، وصفات، ديكورات رمضانية مبكرة' },
-    { name: 'مارس', event: 'بداية الربيع / عيد الأم', icon: <Flower className="text-pink-400" />, tip: 'أزياء الربيع، هدايا الأمهات' },
-    { name: 'أبريل', event: 'تجهيزات الصيف', icon: <Sun className="text-yellow-500" />, tip: 'خطط السفر، ملابس السباحة، المشروبات الباردة' },
-    { name: 'مايو', event: 'ذروة نشر الصيف', icon: <Sun className="text-orange-500" />, tip: 'أنشطة خارجية، حفلات شواء' },
-    { name: 'يونيو', event: 'العودة للمدارس (مبكر)', icon: <BookIcon />, tip: 'نعم، ابدأ التفكير في العودة للمدارس الآن' },
+  const { t } = useLanguage();
+  
+  // Using translated months from context
+  const seasonsData = t.calendar.months;
+  const icons = [
+     <Snowflake className="text-blue-400" />,
+     <HeartIcon />,
+     <Flower className="text-pink-400" />,
+     <Sun className="text-yellow-500" />,
+     <Sun className="text-orange-500" />,
+     <BookIcon />
   ];
 
   return (
@@ -16,27 +21,27 @@ export const ContentCalendar: React.FC = () => {
       <div className="text-center mb-10">
         <h2 className="text-3xl font-bold text-pinterest-dark dark:text-white mb-4 flex justify-center items-center gap-3">
             <CalendarDays className="w-8 h-8 text-pinterest-red" />
-            تقويم المحتوى (Seasonal Planner)
+            {t.calendar.title}
         </h2>
         <p className="text-gray-600 dark:text-gray-300 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-900/50 inline-block px-4 py-2 rounded-full">
-            قاعدة ذهبية: انشر قبل الموسم بـ 45-60 يوماً
+            {t.calendar.rule}
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {seasons.map((item, idx) => (
+        {seasonsData.map((item, idx) => (
             <div key={idx} className="bg-white dark:bg-dark-card p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-dark-border relative overflow-hidden group hover:-translate-y-1 transition-all">
-                <div className="absolute top-0 left-0 w-2 h-full bg-gray-100 dark:bg-dark-border group-hover:bg-pinterest-red transition-colors"></div>
-                <div className="flex justify-between items-start mb-4 pl-4">
+                <div className="absolute top-0 start-0 w-2 h-full bg-gray-100 dark:bg-dark-border group-hover:bg-pinterest-red transition-colors"></div>
+                <div className="flex justify-between items-start mb-4 ps-4">
                     <h3 className="text-2xl font-bold text-gray-800 dark:text-white">{item.name}</h3>
-                    <div className="p-2 bg-gray-50 dark:bg-dark-input rounded-lg border border-gray-100 dark:border-dark-border">{item.icon}</div>
+                    <div className="p-2 bg-gray-50 dark:bg-dark-input rounded-lg border border-gray-100 dark:border-dark-border">{icons[idx]}</div>
                 </div>
                 <div className="mb-2">
-                    <span className="text-xs font-bold text-pinterest-red uppercase tracking-wider">الحدث الرئيسي</span>
+                    <span className="text-xs font-bold text-pinterest-red uppercase tracking-wider">{t.calendar.event}</span>
                     <p className="font-medium text-gray-900 dark:text-gray-200">{item.event}</p>
                 </div>
                 <div className="pt-4 border-t border-gray-100 dark:border-dark-border mt-4">
-                    <span className="text-xs text-gray-400 block mb-1">ماذا تنشر؟</span>
+                    <span className="text-xs text-gray-400 block mb-1">{t.calendar.whatToPost}</span>
                     <p className="text-sm text-gray-600 dark:text-gray-300 leading-snug">{item.tip}</p>
                 </div>
             </div>
@@ -44,9 +49,9 @@ export const ContentCalendar: React.FC = () => {
       </div>
       
       <div className="mt-12 bg-white dark:bg-dark-card p-8 rounded-2xl border border-dashed border-gray-300 dark:border-dark-border text-center transition-colors">
-          <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">هل تريد النجاح المستمر؟</h3>
+          <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">{t.calendar.evergreenTitle}</h3>
           <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              اخلط بين <strong>المحتوى الموسمي</strong> (المرتبط بوقت) و <strong>المحتوى دائم الخضرة (Evergreen)</strong> الذي يبحث عنه الناس طوال العام (مثل: نصائح العناية بالبشرة، تنظيم الوقت).
+              {t.calendar.evergreenDesc}
           </p>
       </div>
     </div>

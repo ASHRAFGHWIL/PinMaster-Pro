@@ -1,3 +1,5 @@
+export type Language = 'ar' | 'en';
+
 export interface PinData {
   title: string;
   description: string;

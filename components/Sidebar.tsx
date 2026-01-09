@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tab } from '../types';
-import { LayoutDashboard, PenTool, Search, Calendar, Moon, Sun, Rocket, Zap } from 'lucide-react';
+import { LayoutDashboard, PenTool, Search, Calendar, Moon, Sun, Rocket, Zap, Globe } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface SidebarProps {
   activeTab: Tab;
@@ -19,13 +20,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
   isDarkMode, 
   toggleDarkMode 
 }) => {
+  const { language, setLanguage, t } = useLanguage();
+
   const menuItems = [
-    { id: Tab.STRATEGY, label: 'الاستراتيجية', icon: <LayoutDashboard size={20} /> },
-    { id: Tab.POST_GENERATOR, label: 'مولد المنشورات', icon: <Zap size={20} /> },
-    { id: Tab.HIGH_CONVERTING, label: 'خطة التحويل', icon: <Rocket size={20} /> },
-    { id: Tab.BUILDER, label: 'مصمم الدبابيس', icon: <PenTool size={20} /> },
-    { id: Tab.SEO, label: 'محسن SEO', icon: <Search size={20} /> },
-    { id: Tab.CALENDAR, label: 'التقويم', icon: <Calendar size={20} /> },
+    { id: Tab.STRATEGY, label: t.tabs[Tab.STRATEGY], icon: <LayoutDashboard size={20} /> },
+    { id: Tab.POST_GENERATOR, label: t.tabs[Tab.POST_GENERATOR], icon: <Zap size={20} /> },
+    { id: Tab.HIGH_CONVERTING, label: t.tabs[Tab.HIGH_CONVERTING], icon: <Rocket size={20} /> },
+    { id: Tab.BUILDER, label: t.tabs[Tab.BUILDER], icon: <PenTool size={20} /> },
+    { id: Tab.SEO, label: t.tabs[Tab.SEO], icon: <Search size={20} /> },
+    { id: Tab.CALENDAR, label: t.tabs[Tab.CALENDAR], icon: <Calendar size={20} /> },
   ];
 
   return (
@@ -35,10 +38,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <div className="fixed inset-0 bg-black/50 z-20 md:hidden" onClick={toggleMobile}></div>
       )}
 
-      {/* Sidebar Container */}
+      {/* Sidebar Container - Using start-0 for RTL/LTR compatibility */}
       <div className={`
-        fixed top-0 right-0 h-full bg-white dark:bg-dark-card w-64 shadow-xl z-30 transition-all duration-300 transform 
-        ${isMobileOpen ? 'translate-x-0' : 'translate-x-full'} md:translate-x-0 md:static md:shadow-none border-l border-gray-100 dark:border-dark-border
+        fixed top-0 start-0 h-full bg-white dark:bg-dark-card w-64 shadow-xl z-30 transition-all duration-300 transform 
+        ${isMobileOpen ? 'translate-x-0' : (language === 'ar' ? 'translate-x-full' : '-translate-x-full')} md:translate-x-0 md:static md:shadow-none border-e border-gray-100 dark:border-dark-border
       `}>
         <div className="p-6 flex items-center justify-between border-b border-gray-100 dark:border-dark-border">
            <div className="flex items-center gap-3">
@@ -69,6 +72,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </nav>
 
         <div className="absolute bottom-0 w-full p-6 border-t border-gray-100 dark:border-dark-border space-y-4">
+            {/* Language Toggle */}
+            <button 
+              onClick={() => setLanguage(language === 'ar' ? 'en' : 'ar')}
+              className="w-full flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-dark-input text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            >
+               <span className="text-sm font-medium flex items-center gap-2">
+                 <Globe size={16} />
+                 {language === 'ar' ? 'English (US)' : 'العربية'}
+               </span>
+               <span className="text-xs font-bold text-pinterest-red">{language.toUpperCase()}</span>
+            </button>
+
             {/* Dark Mode Toggle */}
             <button 
               onClick={toggleDarkMode}
@@ -76,18 +91,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
             >
               <span className="text-sm font-medium flex items-center gap-2">
                 {isDarkMode ? <Moon size={16} /> : <Sun size={16} />}
-                {isDarkMode ? 'الوضع الليلي' : 'الوضع النهاري'}
+                {isDarkMode ? t.common.darkMode : t.common.lightMode}
               </span>
               <div className={`w-8 h-4 rounded-full relative transition-colors ${isDarkMode ? 'bg-pinterest-red' : 'bg-gray-300'}`}>
-                <div className={`absolute top-0.5 w-3 h-3 bg-white rounded-full transition-all ${isDarkMode ? 'left-0.5' : 'right-0.5'}`}></div>
+                <div className={`absolute top-0.5 w-3 h-3 bg-white rounded-full transition-all ${isDarkMode ? 'start-0.5' : 'end-0.5'}`}></div>
               </div>
             </button>
 
             <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-xl border border-green-100 dark:border-green-900/50">
-                <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">حالة الاشتراك</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">{t.common.subStatus}</p>
                 <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                    <span className="text-sm font-bold text-gray-800 dark:text-gray-200">نسخة المحترفين</span>
+                    <span className="text-sm font-bold text-gray-800 dark:text-gray-200">{t.common.proStatus}</span>
                 </div>
             </div>
         </div>

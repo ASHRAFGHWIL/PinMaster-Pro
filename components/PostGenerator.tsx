@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { generateSinglePin } from '../services/gemini';
 import { GeneratedPin } from '../types';
 import { Zap, Copy, Image as ImageIcon, AlignLeft, Hash, Check, Wand2 } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export const PostGenerator: React.FC = () => {
+  const { t, language } = useLanguage();
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<GeneratedPin | null>(null);
@@ -16,10 +18,10 @@ export const PostGenerator: React.FC = () => {
     setError('');
     setResult(null);
     try {
-      const data = await generateSinglePin(description);
+      const data = await generateSinglePin(description, language);
       setResult(data);
     } catch (err) {
-      setError('حدث خطأ أثناء التوليد. الرجاء المحاولة مرة أخرى.');
+      setError(t.common.error);
     } finally {
       setLoading(false);
     }
@@ -36,22 +38,22 @@ export const PostGenerator: React.FC = () => {
       <div className="text-center mb-10">
         <h2 className="text-3xl font-bold text-pinterest-dark dark:text-white mb-4 flex justify-center items-center gap-2">
             <Zap className="w-8 h-8 text-yellow-500" />
-            مولد المنشورات الذكي
+            {t.postGen.title}
         </h2>
         <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            حول أي فكرة أو نص أو وصف منتج إلى منشور بينتريست احترافي وجاهز للنشر بضغطة زر.
+            {t.postGen.subtitle}
         </p>
       </div>
 
       {/* Input Section */}
       <div className="bg-white dark:bg-dark-card p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-dark-border mb-8 transition-colors">
         <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
-            وصف المحتوى / المنتج / الفكرة
+            {t.postGen.label}
         </label>
         <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="مثال: مقال يتحدث عن فوائد شرب الماء، أو منتج كريم ترطيب للبشرة الجافة..."
+            placeholder="..."
             rows={5}
             className="w-full p-4 border border-gray-300 dark:border-dark-border rounded-xl focus:ring-2 focus:ring-pinterest-red focus:border-transparent outline-none resize-none bg-gray-50 dark:bg-dark-input text-gray-900 dark:text-white transition-colors"
         />
@@ -61,7 +63,7 @@ export const PostGenerator: React.FC = () => {
                 disabled={loading || !description.trim()}
                 className="bg-pinterest-red text-white px-8 py-3 rounded-xl font-bold hover:bg-red-700 transition-all disabled:opacity-50 flex items-center gap-2 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
-                {loading ? 'جاري الصياغة...' : <><Wand2 className="w-5 h-5" /> توليد المنشور</>}
+                {loading ? t.postGen.loading : <><Wand2 className="w-5 h-5" /> {t.postGen.btn}</>}
             </button>
         </div>
         {error && <div className="mt-4 text-red-500 text-sm text-center">{error}</div>}
@@ -88,7 +90,7 @@ export const PostGenerator: React.FC = () => {
                 </div>
                 <div className="p-6 flex-1 flex flex-col">
                     <div className="flex justify-between items-start mb-4">
-                        <h3 className="font-bold text-gray-500 dark:text-gray-400 text-xs uppercase tracking-wider">النص على الصورة (Overlay)</h3>
+                        <h3 className="font-bold text-gray-500 dark:text-gray-400 text-xs uppercase tracking-wider">{t.postGen.previewOverlay}</h3>
                         <button onClick={() => copyToClipboard(result.textOverlay, 'overlay')} className="text-pinterest-red hover:bg-red-50 p-1 rounded">
                              {copied === 'overlay' ? <Check size={16} /> : <Copy size={16} />}
                         </button>
@@ -96,7 +98,7 @@ export const PostGenerator: React.FC = () => {
                     <p className="text-2xl font-black text-gray-800 dark:text-white mb-6 leading-tight">{result.textOverlay}</p>
                     
                     <div className="mt-auto pt-4 border-t border-gray-100 dark:border-dark-border">
-                        <h3 className="font-bold text-gray-500 dark:text-gray-400 text-xs uppercase tracking-wider mb-2">فكرة الصورة (Prompt)</h3>
+                        <h3 className="font-bold text-gray-500 dark:text-gray-400 text-xs uppercase tracking-wider mb-2">{t.postGen.previewPrompt}</h3>
                         <p className="text-sm text-gray-600 dark:text-gray-300 italic">"{result.visualHook}"</p>
                     </div>
                 </div>
@@ -108,7 +110,7 @@ export const PostGenerator: React.FC = () => {
                 {/* Title */}
                 <div className="bg-white dark:bg-dark-card p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-dark-border group">
                     <div className="flex justify-between items-center mb-2">
-                        <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">العنوان (Title)</label>
+                        <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">{t.postGen.resTitle}</label>
                         <button onClick={() => copyToClipboard(result.title, 'title')} className="text-gray-400 hover:text-pinterest-red transition-colors">
                             {copied === 'title' ? <Check size={16} /> : <Copy size={16} />}
                         </button>
@@ -119,7 +121,7 @@ export const PostGenerator: React.FC = () => {
                 {/* Description */}
                 <div className="bg-white dark:bg-dark-card p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-dark-border group">
                     <div className="flex justify-between items-center mb-2">
-                        <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">الوصف (Description)</label>
+                        <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">{t.postGen.resDesc}</label>
                         <button onClick={() => copyToClipboard(result.description, 'desc')} className="text-gray-400 hover:text-pinterest-red transition-colors">
                             {copied === 'desc' ? <Check size={16} /> : <Copy size={16} />}
                         </button>
@@ -132,7 +134,7 @@ export const PostGenerator: React.FC = () => {
                      <div className="bg-white dark:bg-dark-card p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-dark-border">
                         <div className="flex items-center gap-2 mb-3 text-blue-600 dark:text-blue-400">
                             <Hash size={18} />
-                            <span className="font-bold text-sm">الهاشتاغات</span>
+                            <span className="font-bold text-sm">{t.postGen.resHash}</span>
                         </div>
                         <div className="flex flex-wrap gap-2">
                             {result.hashtags.map((tag, i) => (
@@ -147,7 +149,7 @@ export const PostGenerator: React.FC = () => {
                         <div className="flex justify-between items-center mb-2">
                             <div className="flex items-center gap-2 text-green-600 dark:text-green-400">
                                 <AlignLeft size={18} />
-                                <span className="font-bold text-sm">النص البديل (Alt Text)</span>
+                                <span className="font-bold text-sm">{t.postGen.resAlt}</span>
                             </div>
                             <button onClick={() => copyToClipboard(result.altText, 'alt')} className="text-gray-400 hover:text-green-600 transition-colors">
                                 {copied === 'alt' ? <Check size={16} /> : <Copy size={16} />}
