@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tab } from '../types';
-import { LayoutDashboard, PenTool, Search, Calendar, Moon, Sun, Rocket } from 'lucide-react';
+import { LayoutDashboard, PenTool, Search, Calendar, Moon, Sun, Rocket, Zap } from 'lucide-react';
 
 interface SidebarProps {
   activeTab: Tab;
@@ -21,6 +21,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const menuItems = [
     { id: Tab.STRATEGY, label: 'الاستراتيجية', icon: <LayoutDashboard size={20} /> },
+    { id: Tab.POST_GENERATOR, label: 'مولد المنشورات', icon: <Zap size={20} /> },
     { id: Tab.HIGH_CONVERTING, label: 'خطة التحويل', icon: <Rocket size={20} /> },
     { id: Tab.BUILDER, label: 'مصمم الدبابيس', icon: <PenTool size={20} /> },
     { id: Tab.SEO, label: 'محسن SEO', icon: <Search size={20} /> },

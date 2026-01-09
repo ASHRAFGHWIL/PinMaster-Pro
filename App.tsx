@@ -6,6 +6,7 @@ import { SeoOptimizer } from './components/SeoOptimizer';
 import { StrategyGuide } from './components/StrategyGuide';
 import { ContentCalendar } from './components/ContentCalendar';
 import { HighConvertingPin } from './components/HighConvertingPin';
+import { PostGenerator } from './components/PostGenerator';
 import { Menu } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -39,6 +40,8 @@ const App: React.FC = () => {
 
   const renderContent = () => {
     switch (activeTab) {
+      case Tab.POST_GENERATOR:
+        return <PostGenerator />;
       case Tab.HIGH_CONVERTING:
         return <HighConvertingPin />;
       case Tab.BUILDER:

@@ -29,10 +29,20 @@ export interface HighConvertingPlan {
   strategies: PinStrategyVariant[];
 }
 
+export interface GeneratedPin {
+  visualHook: string;
+  textOverlay: string;
+  title: string;
+  description: string;
+  altText: string;
+  hashtags: string[];
+}
+
 export enum Tab {
   BUILDER = 'builder',
   SEO = 'seo',
   STRATEGY = 'strategy',
   CALENDAR = 'calendar',
-  HIGH_CONVERTING = 'high_converting'
+  HIGH_CONVERTING = 'high_converting',
+  POST_GENERATOR = 'post_generator'
 }
