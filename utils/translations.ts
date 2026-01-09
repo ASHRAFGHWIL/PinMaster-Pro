@@ -62,10 +62,18 @@ export const translations = {
       pillar2: 'استراتيجية الكلمات المفتاحية',
       pillar3: 'التوقيت والجدولة',
       pillar4: 'قاعدة 10x للمحتوى',
+      pillar5: 'قوة المؤشرات (Trends)',
+      pillar6: 'الدبابيس الغنية (Rich Pins)',
+      pillar5Desc: 'لا تخمن ما يبحث عنه الناس. استخدم أداة Pinterest Trends لمعرفة الصاعد والهابط.',
+      pillar6Desc: 'الدبابيس الغنية تسحب البيانات (السعر، المكونات، العنوان) تلقائياً من موقعك، مما يزيد الثقة والنقر.',
       freshPins: 'الخلطة السرية (Fresh Pins)',
       freshPinsDesc: 'خوارزمية بينتريست تكره التكرار. "الدبوس الطازج" هو صورة جديدة لم يرها النظام من قبل.',
       solutionMindset: 'عقلية الحل وليس المنتج',
-      solutionMindsetDesc: 'أنت تبيع الحل، لا الأداة.'
+      solutionMindsetDesc: 'أنت تبيع الحل، لا الأداة.',
+      hashtagTipTitle: '💡 نصيحة احترافية لزيادة الوصول',
+      hashtagTipIntro: 'في كل منشور داخل هذه اللوحة:',
+      hashtagTipRule: 'استخدم 5–8 هاشتاجات فقط',
+      hashtagTipFormula: '3 عامة + 3 متخصصة + 2 للبيع'
     },
     calendar: {
       title: 'تقويم المحتوى',
@@ -170,10 +178,18 @@ export const translations = {
       pillar2: 'Keyword Strategy',
       pillar3: 'Timing & Scheduling',
       pillar4: '10x Content Rule',
+      pillar5: 'Power of Trends',
+      pillar6: 'Rich Pins',
+      pillar5Desc: 'Don\'t guess. Use the Pinterest Trends tool to see what is rising and what is falling.',
+      pillar6Desc: 'Rich Pins automatically sync information (price, ingredients) from your website to your Pins.',
       freshPins: 'Secret Sauce (Fresh Pins)',
       freshPinsDesc: 'Pinterest algorithm hates repetition. A "Fresh Pin" is a new image the system hasn\'t seen before.',
       solutionMindset: 'Solution Mindset',
-      solutionMindsetDesc: 'You sell the solution, not the tool.'
+      solutionMindsetDesc: 'You sell the solution, not the tool.',
+      hashtagTipTitle: '💡 Pro Tip for Reach',
+      hashtagTipIntro: 'In every post inside this board:',
+      hashtagTipRule: 'Use only 5–8 hashtags',
+      hashtagTipFormula: '3 General + 3 Specific + 2 Sales'
     },
     calendar: {
       title: 'Content Calendar',

@@ -19,8 +19,8 @@ export const generatePinStrategy = async (topic: string, lang: Language): Promis
     The user wants to create a Pin about: "${topic}".
     
     Based on high-converting Pinterest strategies (Visual Search Engine logic):
-    1. Generate 5 catchy, click-worthy titles (mix of "How-to", "Lists", and "Curiosity gap"). Titles should be 40-50 chars max.
-    2. Write a SEO-optimized description (100-200 words) that includes keywords naturally. Do not "stuff" keywords. Focus on the solution, not just the product.
+    1. Generate 5 catchy, click-worthy titles (mix of "How-to", "Lists", and "Curiosity gap"). Titles should be 40-50 chars max. INCLUDE 1 RELEVANT EMOJI IN EACH TITLE at the beginning or end.
+    2. Write a SEO-optimized description (100-200 words) that includes keywords naturally. Do not "stuff" keywords. Focus on the solution, not just the product. USE 2-3 RELEVANT EMOJIS within the text to make it visually engaging.
     3. Suggest 5-7 relevant hashtags.
     4. Provide a specific "Pro Tip" for this topic based on visual appeal or seasonal trends.
 
@@ -78,8 +78,8 @@ export const generateHighConvertingPlan = async (topic: string, audience: string
       For EACH strategy, provide:
       - Visual Hook: Describe the image layout strictly.
       - Text Overlay: The exact text to put ON the image (Critical for CTR).
-      - Title: SEO optimized title.
-      - Description: 2 sentences with keywords.
+      - Title: SEO optimized title. INCLUDE A RELEVANT EMOJI.
+      - Description: 2 sentences with keywords. INCLUDE 1-2 RELEVANT EMOJIS.
       - Keywords: 3-5 focus keywords.
   
       Output Language: ${languageName}.
@@ -138,8 +138,8 @@ export const generateSinglePin = async (userDescription: string, lang: Language)
     
     1. **Visual Hook:** Describe the ideal image composition. Be specific about what should be in the photo/graphic.
     2. **Text Overlay:** Create a punchy, short text overlay for the image (max 6 words). This is crucial for stopping the scroll.
-    3. **Title:** A keyword-rich, attention-grabbing headline.
-    4. **Description:** A compelling 2-3 sentence description incorporating keywords naturally.
+    3. **Title:** A keyword-rich, attention-grabbing headline with ONE relevant emoji.
+    4. **Description:** A compelling 2-3 sentence description incorporating keywords naturally. Use 2-3 relevant emojis to make it engaging and friendly.
     5. **Alt Text:** A description of the pin for accessibility and SEO.
     6. **Hashtags:** 3-5 relevant hashtags.
 
