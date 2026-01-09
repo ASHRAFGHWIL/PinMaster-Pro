@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PinMaster Pro - استراتيجية بينتريست للمحترفين</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Tajawal', 'sans-serif'],
+            },
+            colors: {
+              pinterest: {
+                red: '#E60023',
+                dark: '#111111',
+                gray: '#767676',
+                light: '#EFEFEF'
+              },
+              dark: {
+                bg: '#121212',
+                card: '#1E1E1E',
+                border: '#333333',
+                input: '#2A2A2A'
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        font-family: 'Tajawal', sans-serif;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.35.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-[#F9F9F9] dark:bg-[#121212] transition-colors duration-300">
+    <div id="root"></div>
+  </body>
+</html>
